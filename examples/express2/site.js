@@ -1,8 +1,8 @@
 /**
  * Module dependencies.
  */
-var passport = require('passport')
-  , login = require('connect-ensure-login')
+var passport = require('passport'),
+  login = require('connect-ensure-login')
 
 
 exports.index = function(req, res) {
@@ -13,7 +13,14 @@ exports.loginForm = function(req, res) {
   res.render('login');
 };
 
-exports.login = passport.authenticate('local', { successReturnToOrRedirect: '/', failureRedirect: '/login' });
+exports.login = passport.authenticate('local', {
+  successReturnToOrRedirect: '/',
+  failureRedirect: '/login'
+});
+// exports.login = passport.authenticate('oauth2-resource-owner-password', {
+//   successReturnToOrRedirect: '/',
+//   failureRedirect: '/login'
+// });
 
 exports.logout = function(req, res) {
   req.logout();
@@ -23,6 +30,8 @@ exports.logout = function(req, res) {
 exports.account = [
   login.ensureLoggedIn(),
   function(req, res) {
-    res.render('account', { user: req.user });
+    res.render('account', {
+      user: req.user
+    });
   }
 ]
